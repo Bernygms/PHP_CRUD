@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>aeesa-php</title>
+	<meta charset="utf-8">
+	<link rel="stylesheet" type="text/css" href="../bootstrap/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="../bootstrap/css/aeesa.css">
+    <link rel="stylesheet" type="text/css" href="../bootstrap/css/datepicker.css">
+    <link rel="stylesheet" type="text/css" href="../fontawesome-free-5.6.3/css/all.css">
+	<!--<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">-->
+</head>
+<body>
+	<!--Start Container-->
+		<div class="container">
+			<div class="row">
+				<div class="col-md-12 text-center">
+					<h2><li class="fab fa-php"></li>PHP CRUD</h2>					
+				</div>					
+			</div>
+			<div class="row">
+				<div class="col-md-12 ">
+					<div class="pull-right">
+						<button class="btn btn-success" data-toggle="modal" data-target="#add_profesor"><li class="fas fa-plus-circle"></li> Nuevo Profesor</button>
+					</div>				
+				</div>					
+			</div>
+			<div class="row">
+				<div class="col-md-10">
+                    <div class="alert alert-success alert-dismissible" id="myAlert_guardar">
+                        <a  class="close">&times;</a>
+                        <strong>¡Bien hecho!</strong> Nuevo profesor registrador.
+                    </div>
+                    <div class="alert alert-success alert-dismissible" id="myAlert_editar">
+                        <a  class="close">&times;</a>
+                        <strong>¡Bien hecho!</strong>Los datos fueron actualizados.
+                    </div>
+                    <div class="alert alert- alert-warning" id="myAlert_eliminar">
+                        <a  class="close">&times;</a>
+                        <strong>Cuidado!</strong> El dato ya fue eliminado y no sera posible recuperarlo.
+                    </div>                    	
+				</div>
+                <br>
+                <div class="col-md-12"> 
+                    <!--Id Nombre Apellidos Dirección Población Código Provincia Télefono Fecha de DNI-->
+                    <!--Table donde mostramos la consulta de los profesores-->
+                    
+                    <h3><li class="fas fa-table"></li>Profesores</h3>
+                    <div class="input-group col-md-6">
+                    <input id="search"  type="text" class="form-control " placeholder="Buscar...">
+                        <span id="search" class="input-group-btn">
+                            <button id="search" class="btn btn-default" type="button">Go!</button>
+                        </span>
+                    </div> 
+                    <br>
+                    <div id="contenido"></div>
+                </div>				
+			</div>
+		</div>
+		<!--End Container-->
+		<!--Start modal, add teacher-->
+		<div class="modal fade" id="add_profesor" tabindex="-1" role="dialog" aria-labelledby="miModalLabel">
+                <div class="modal-dialog modal-lg" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                            <h3 id="miModalLabel">Agregar nuevo profesor</h3>
+                            <div id="error"></div>
+                        </div>
+                        
+                        <div class="modal-body">
+                            <div class="container-fluid">
+                                <div class="row">
+                                    <div class="form-group col-md-4">
+                                        <label for="id">Nombre</label>
+                                        <input id="nombre" name="nombre" type="text" class="form-control"/>
+                                        <small id="nombre_mensaje" class="form-text text-muted">Ingresa tu nombre.</small>
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        <label for="id">Apellidos</label>
+                                        <input id="apellidos" name="apellidos" type="text" class="form-control"/>
+                                        <small id="apellidos_mensaje" class="form-text text-muted">Ingresa tus apellidos.</small>
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        <label for="id">Dirección</label>
+                                        <input id="direccion" name="direccion" type="text" class="form-control"/>
+                                        <small id="direccion_mensaje" class="form-text text-muted">Ingresa tu dirección.</small>
+                                    </div>
+                                    <div class="form-group col-md-4"">
+                                        <label for="id">Población</label>
+                                        <input id="poblacion" name="poblacion" type="text" class="form-control"/>
+                                        <small id="direccion_mensaje" class="form-text text-muted">Ingresa tu población.</small>
+                                    </div>
+                                    <div class="form-group col-md-4"">
+                                        <label for="id">C.P.</label>
+                                        <input id="cp" name="cp" type="text" class="form-control"/>
+                                        <small id="cp_mensaje" class="form-text text-muted">Ingresa el codigo postal.</small>
+                                    </div>
+                                    <div class="form-group col-md-4"">
+                                        <label for="id">Provincia</label>
+                                        <input id="provincia" name="provincia" type="text" class="form-control"/>
+                                        <small id="provincia_mensaje" class="form-text text-muted">Ingresa lugar de provincia.</small>
+                                    </div>
+                                    <div class="form-group col-md-4"">
+                                        <label for="id">Telefono</label>
+                                        <input id="telefono" name="telefono" type="text" class="form-control"/>
+                                        <small id="telefono_mensaje" class="form-text text-muted">Ingresa un número de telefono.</small>
+                                    </div>
+                                    <div class="form-group col-md-4"">
+                                        <label for="id">Fechade de nacimiento</label>
+                                        <input id="fecha_de_nacimiento" name="fecha_de_nacimiento" type="text" class="form-control fecha_de_nacimiento" placeholder="15-07-1994"/>
+                                        <small id="fecha_de_nacimiento_mensaje" class="form-text text-muted">Ingresa tu fecha de nacimiento.</small>
+                                    </div>
+                                    <div class="form-group col-md-4"">
+                                        <label for="id">DNI</label>
+                                        <input id="dni" name="dni" type="text" class="form-control"/>
+                                        <small id="dni_mensaje" class="form-text text-muted">Ingresa tu  DNI</small>
+                                    </div>
+                                    <div class="modal-footer col-md-4">
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                                        <button id="guardar_nuevo" type="button" class="btn btn-primary guardar" onclick="addProfesor();">Guardar Cliente</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+		<!--End modal , add teacher-->
+        <!--Start modal, update teacher-->
+        <div class="modal fade" id="update_profesor" tabindex="-1" role="dialog" aria-labelledby="miModalLabel">
+                <div class="modal-dialog modal-lg" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                            <h3 id="miModalLabel"> Actualizar datos del profesor</h3>
+                        </div>
+                        
+                        <div class="modal-body">
+                            <div class="container-fluid">
+                                <div class="row">
+                                    <div class="form-group col-md-4">
+                                        <label for="id">Id</label>
+                                        <input id="id_actualizar" name="id_actualizar" type="" class="form-control" disabled/>
+                                        <small id="nombre_mensaje_actualizar" class="form-text text-muted">Ingresa tu nombre.</small>
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        <label for="id">Nombre</label>
+                                        <input id="nombre_actualizar" name="nombre_actualizar" type="text" class="form-control"/>
+                                        <small id="nombre_mensaje_actualizar" class="form-text text-muted">Ingresa tu nombre.</small>
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        <label for="id">Apellidos</label>
+                                        <input id="apellidos_actualizar" name="apellidos_actualizar" type="text" class="form-control"/>
+                                        <small id="apellidos_mensaje_actualizar" class="form-text text-muted">Ingresa tus apellidos.</small>
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        <label for="id">Dirección</label>
+                                        <input id="direccion_actualizar" name="direccion_actualizar" type="text" class="form-control"/>
+                                        <small id="direccion_mensaje_actualizar" class="form-text text-muted">Ingresa tu dirección.</small>
+                                    </div>
+                                    <div class="form-group col-md-4"">
+                                        <label for="id">Población</label>
+                                        <input id="poblacion_actualizar" name="poblacion_actualizar" type="text" class="form-control"/>
+                                        <small id="direccion_mensaje_actualizar" class="form-text text-muted">Ingresa tu población.</small>
+                                    </div>
+                                    <div class="form-group col-md-4"">
+                                        <label for="id">C.P.</label>
+                                        <input id="cp_actualizar" name="cp_actualizar" type="text" class="form-control"/>
+                                        <small id="cp_mensaje_actualizar" class="form-text text-muted">Ingresa el codigo postal.</small>
+                                    </div>
+                                    <div class="form-group col-md-4"">
+                                        <label for="id">Provincia</label>
+                                        <input id="provincia_actualizar" name="provincia_actualizar" type="text" class="form-control"/>
+                                        <small id="provincia_mensaje_actualizar" class="form-text text-muted">Ingresa lugar de provincia.</small>
+                                    </div>
+                                    <div class="form-group col-md-4"">
+                                        <label for="id">Telefono</label>
+                                        <input id="telefono_actualizar" name="telefono_actualizar" type="text" class="form-control"/>
+                                        <small id="telefono_mensaje_actualizar" class="form-text text-muted">Ingresa un número de telefono.</small>
+                                    </div>
+                                    <div class="form-group col-md-4"">
+                                        <label for="id">Fechade de nacimiento</label>
+                                        <input id="fecha_de_nacimiento_actualizar" name="fecha_de_nacimiento_actualizar" type="text" class="form-control fecha_de_nacimiento_actualizar" placeholder="15-07-1994" />
+                                        <small id="fecha_de_nacimiento_mensaje_actualizar" class="form-text text-muted">Ingresa tu fecha de nacimiento.</small>
+                                    </div>
+                                    <div class="form-group col-md-4"">
+                                        <label for="id">DNI</label>
+                                        <input id="dni_actualizar" name="dni_actualizar" type="text" class="form-control"/>
+                                        <small id="dni_mensaje_actualizar" class="form-text text-muted">Ingresa tu  DNI</small>
+                                    </div>
+                                    <div class="modal-footer col-md-4">
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                                        <button id="guardar_editado" type="button" class="btn btn-primary guardar_editado" onclick="updateProfesor();">Guardar Cliente</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        <!--End modal , update teacher-->
+	<script type="text/javascript" src="../bootstrap/js/jquery-3.3.1.min.js"></script>
+	<script type="text/javascript" src="../bootstrap/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../fontawesome-free-5.6.3/js/all.js" defer></script>
+	<script type="text/javascript" src="../bootstrap/js/aeesa.js"></script>
+    <script type="text/javascript" src="../bootstrap/js/validar_main.js"></script>
+    <script type="text/javascript" src="../bootstrap/js/bootstrap-datepicker.js"></script>
+</body>
+</html>
